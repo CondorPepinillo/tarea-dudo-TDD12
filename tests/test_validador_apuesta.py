@@ -67,7 +67,7 @@ def test_apuesta_valida_as_a_as(validador):
 
 def test_apuesta_invalida_as_a_as(validador):
     actual = (1,4)
-    apuesta = (1,4)
+    apuesta = (1,3)
     resultado = validador.validar_apuesta(apuesta, actual)
     assert resultado == False
 
