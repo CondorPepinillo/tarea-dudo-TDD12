@@ -1,11 +1,11 @@
 import pytest
 import sys
 sys.path.append("src")
-from juego.validador_apuesta import validador_apuesta
+from juego.validador_apuestas import validador_apuestas
 
 @pytest.fixture
 def validador():
-    return validador_apuesta()
+    return validador_apuestas()
 
 ## casos normales normal-normal
 def test_apuesta_valida_cantidad(validador):
