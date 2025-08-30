@@ -1,4 +1,4 @@
-from dado import *
+from src.juego.dado import Dado
 
 class Cacho:
     lista_de_dados = []
@@ -30,12 +30,10 @@ class Cacho:
     
     def remover_dado(self, posicion):
         self.lista_de_dados.pop(posicion)
+    
+    def get_lista_de_dados(self):
+        return self.lista_de_dados
 
-cacho = Cacho()
-print(cacho.revisar_cacho())
-cacho.agitar_cacho()
-print(cacho.revisar_cacho())
-cacho.remover_dado(2)
-print(cacho.revisar_cacho())
+
    
     

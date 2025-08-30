@@ -2,13 +2,11 @@ class contador_pintas:
     def __init__(self):
         self.ronda_especial = False
 
-    def contar_pintas(self, cacho,apuesta_actual=None):
-        if apuesta_actual == None:
-            return {}
-            
+    def contar_pintas(self, cacho,apuesta_actual):
         nombres = {1: "As", 2: "Tonto", 3: "Tren", 4: "Cuadra", 5: "Quina", 6: "Sexto"}
+        apuesta_actual_formato = nombres[apuesta_actual[0]]
         pintas = []
-        for dado in cacho.gte_lista_de_dados():
+        for dado in cacho.get_lista_de_dados():
             pintas.append(nombres[dado.get_pinta()])
         count = {}
         for pinta in pintas:
@@ -17,7 +15,7 @@ class contador_pintas:
             else:
                 count[pinta] = 1
         if not self.ronda_especial:
-            count[apuesta_actual] += count.pop("As")
+            count[apuesta_actual_formato] += count.pop("As")
             return count
         else:
             return count

@@ -9,16 +9,25 @@ def contador():
     return contador_pintas()
 
 
+def test_contar_pintas_con_valores(contador,mocker): ## debemnos usar mock para controalar los valores de los dados
+    from src.juego.dado import Dado
+    from src.juego.cacho import Cacho
+    dados_fijos = [1, 2, 2, 3, 3, 3]
+    mock_dados_lista = []
+    for pinta in dados_fijos:
+        mock_dado = mocker.Mock(spec=Dado)
+        mock_dado.get_pinta.return_value = pinta
+        mock_dados_lista.append(mock_dado)
+    mock_cacho = mocker.Mock(spec=Cacho)
+    mock_cacho.get_lista_de_dados.return_value = mock_dados_lista
+    apuesta_actual = (2, 4)  # Apuesta actual (pinta, cantidad)
+    resultado = contador.contar_pintas(mock_cacho,apuesta_actual)
+    assert resultado == {'Tonto': 3, 'Tren': 3} 
+    
 
-def test_contar_pintas_vacio(contador):
-    dado = []
-    resultado = contador.contar_pintas(dado)
-    assert resultado == {}
 
-def test_contar_pintas_con_valores(contador):
-    dado = [1, 2, 2, 3, 3, 3]
-    resultado = contador.contar_pintas(dado)
-    assert resultado == {1: 1, 2: 2, 3: 3}
+
+
 
 def test_es_ronda_especial_inicial(contador):
     assert not contador.es_ronda_especial() # Debería ser False inicialmente
