@@ -9,6 +9,7 @@ def contador():
     return contador_pintas()
 
 
+
 def test_contar_pintas_vacio(contador):
     dado = []
     resultado = contador.contar_pintas(dado)
