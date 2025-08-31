@@ -1,8 +1,8 @@
 from src.juego.dado import Dado
 
 class Cacho:
-    lista_de_dados = []
     def __init__(self):
+        self.lista_de_dados = []
         for i in range(5):
             self.lista_de_dados.append(Dado())
             self.lista_de_dados[i].tirar_dado()
