@@ -2,19 +2,32 @@ from src.juego.cacho import Cacho
 
 class GestorPartida:
     def __init__(self, jugadores, pos_inicial = 0):
-        pass
+        self.jugadores = []
+        self.pos_inicial = pos_inicial
+        self.turno_actual = pos_inicial
+        
+        for jugador in jugadores:
+            nuevo_jugador = {
+                'nombre': jugador,
+                'cacho': Cacho()
+            }
+            self.jugadores.append(nuevo_jugador)
             
     def get_jugadores(self):
-        pass
+        return self.jugadores
     
     def decidir_inicial(self):
-        pass
+        return self.jugadores[self.pos_inicial]
     
     def get_turno_actual(self):
-        pass
+        return self.jugadores[self.turno_actual]
     
     def siguiente_turno(self):
-        pass
+        self.turno_actual = (self.turno_actual + 1) % len(self.jugadores)
+        return self.get_turno_actual()
 
     def ronda_especial(self):
-        pass
+        for jugador in self.jugadores:
+            if len(jugador["cacho"].get_lista_de_dados()) == 1:
+                return True
+        return False
