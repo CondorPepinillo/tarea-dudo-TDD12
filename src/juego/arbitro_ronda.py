@@ -20,7 +20,7 @@ class ArbitroRonda:
         else:
             return {'pierde': jugador_apuesta, 'cantidad_real': cantidad_real}
 
-    def determinar_calza(self, cachos, apuesta): 
+    def determinar_calza(self, cachos, apuesta, jugador_apuesta=None): 
         dados_en_juego = sum(len(cacho.get_lista_de_dados()) for cacho in cachos)
         cant_jugadores = len(cachos)
         if dados_en_juego < (cant_jugadores * 5) // 2:

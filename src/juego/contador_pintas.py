@@ -15,7 +15,8 @@ class contador_pintas:
             else:
                 count[pinta] = 1
         if not self.ronda_especial:
-            count[apuesta_actual_formato] += count.pop("As")
+            if "As" in count:
+                count[apuesta_actual_formato] = count.get(apuesta_actual_formato, 0) + count.pop("As")
             return count
         else:
             return count

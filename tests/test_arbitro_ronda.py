@@ -89,3 +89,67 @@ class TestArbitroRonda:
         arbitro = ArbitroRonda(contador)
         with pytest.raises(Exception):
             arbitro.determinar_calza(apuesta=(3, 2), cachos=cachos)
+
+    def test_jugador_pierde_dado(self):
+        cachos = []
+        for _ in range(2):
+            cacho = Cacho()
+
+            cacho.lista_de_dados[0].pinta = 1  
+            cacho.lista_de_dados[1].pinta = 2  
+            cacho.lista_de_dados[2].pinta = 2  
+            cacho.lista_de_dados[3].pinta = 3  
+            cacho.lista_de_dados[4].pinta = 4 
+
+            cachos.append(cacho)
+        
+        contador = contador_pintas()
+        arbitro = ArbitroRonda(contador)
+
+        jugador_pierde = {'nombre': 'Jugador1', 'cacho': cachos[0]}
+        jugador_gana = {'nombre': 'Jugador2', 'cacho': cachos[1]}
+        assert len(jugador_pierde['cacho'].get_lista_de_dados()) == 5
+        resultado = arbitro.determinar_duda(apuesta=(3, 10), jugador_apuesta=jugador_pierde, jugador_duda=jugador_gana, cachos=cachos)
+        assert len(jugador_pierde['cacho'].get_lista_de_dados()) == 4
+
+    def test_jugador_gana_dado(self):
+        cachos = []
+        for _ in range(2):
+            cacho = Cacho()
+
+            cacho.lista_de_dados[0].pinta = 1  
+            cacho.lista_de_dados[1].pinta = 2  
+            cacho.lista_de_dados[2].pinta = 2  
+            cacho.lista_de_dados[3].pinta = 3
+            cacho.remover_dado(0)  
+
+            cachos.append(cacho)
+        
+        contador = contador_pintas()
+        arbitro = ArbitroRonda(contador)
+
+        jugador_apuesta = {'nombre': 'Jugador1', 'cacho': cachos[0]}
+        assert len(jugador_apuesta['cacho'].get_lista_de_dados()) == 4
+        resultado = arbitro.determinar_calza(apuesta=(3, 4), jugador_apuesta=jugador_apuesta, cachos=cachos)
+        assert len(jugador_apuesta['cacho'].get_lista_de_dados()) == 5
+
+    def test_jugador_gana_dado_pero_tiene_cinco_dados(self):
+        cachos = []
+        for _ in range(2):
+            cacho = Cacho()
+
+            cacho.lista_de_dados[0].pinta = 1  
+            cacho.lista_de_dados[1].pinta = 2  
+            cacho.lista_de_dados[2].pinta = 2  
+            cacho.lista_de_dados[3].pinta = 3
+            cacho.lista_de_dados[4].pinta = 4 
+
+            cachos.append(cacho)
+        
+        contador = contador_pintas()
+        arbitro = ArbitroRonda(contador)
+
+        jugador_apuesta = {'nombre': 'Jugador1', 'cacho': cachos[0]}
+        assert len(jugador_apuesta['cacho'].get_lista_de_dados()) == 5
+        resultado = arbitro.determinar_calza(apuesta=(1, 2), jugador_apuesta=jugador_apuesta, cachos=cachos)
+        assert len(jugador_apuesta['cacho'].get_lista_de_dados()) == 5
