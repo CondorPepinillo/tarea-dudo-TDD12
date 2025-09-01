@@ -1,4 +1,7 @@
 from src.juego.cacho import Cacho
+from src.juego.contador_pintas import contador_pintas
+from src.juego.arbitro_ronda import ArbitroRonda
+from src.juego.dado import Dado
 
 class GestorPartida:
     def __init__(self, jugadores, pos_inicial = 0):
@@ -31,3 +34,6 @@ class GestorPartida:
             if len(jugador["cacho"].get_lista_de_dados()) == 1:
                 return True
         return False
+
+    def validar_apuesta(self, apuesta_actual, apuesta_nueva):
+        pass

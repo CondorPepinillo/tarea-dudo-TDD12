@@ -34,3 +34,29 @@ class TestGestorPartida:
         jugador["cacho"].lista_de_dados = [1]
 
         assert gestor.ronda_especial() == True
+
+    def test_validar_apuesta(self):
+        gestor = GestorPartida(["A", "B"])
+
+        # sube cantidad
+        assert gestor.validar_apuesta(apuesta_actual=(2, 3), apuesta_nueva=(3,3)) == True
+        # sube pinta
+        assert gestor.validar_apuesta((1, 2), (1,3)) == True
+        # apuesta no valida
+        assert gestor.validar_apuesta((1,2), (1,3)) == False
+
+    def test_validar_apuesta_caso_ases(self):
+        gestor = GestorPartida(["A", "B"])
+
+        # baja a la mitad 
+        assert gestor.validar_apuesta((5, 3), (3, 1)) == True
+        assert gestor.validar_apuesta((6, 6), (4, 1)) == True
+
+        # baja a menos de la mitad
+        assert gestor.validar_apuesta((5,3), (2, 1)) == False
+
+        # sube de ases
+        assert gestor.validar_apuesta((2, 1), (5,4)) == True
+
+        # subida de pinta no valida
+        assert gestor.validar_apuesta((2,1), (4,4)) == False
