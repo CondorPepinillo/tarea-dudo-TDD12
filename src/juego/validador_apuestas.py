@@ -12,7 +12,7 @@ class validador_apuestas:
     def reglas_normales(self,apuesta_nueva, apuesta_actual):
         if apuesta_nueva[0] < apuesta_actual[0]:### si la pinta es menor
             return False
-        elif apuesta_nueva[0] == apuesta_actual[0] and apuesta_nueva[1] < apuesta_actual[1]:### si la pinta es igual pero la cantidad es menor o igual
+        elif apuesta_nueva[0] == apuesta_actual[0] and apuesta_nueva[1] <= apuesta_actual[1]:### si la pinta es igual pero la cantidad es menor o igual
             return False
         else:
             return True### si la pinta es mayor o la cantidad es mayor

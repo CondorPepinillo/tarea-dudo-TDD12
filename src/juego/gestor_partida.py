@@ -2,6 +2,7 @@ from src.juego.cacho import Cacho
 from src.juego.contador_pintas import contador_pintas
 from src.juego.arbitro_ronda import ArbitroRonda
 from src.juego.dado import Dado
+from src.juego.validador_apuestas import validador_apuestas
 
 class GestorPartida:
     def __init__(self, jugadores, pos_inicial = 0):
@@ -36,25 +37,8 @@ class GestorPartida:
         return False
 
     def validar_apuesta(self, apuesta_actual, apuesta_nueva):
+        validador = validador_apuestas()
         cantidad_actual, pinta_actual = apuesta_actual
         cantidad_nueva, pinta_nueva = apuesta_nueva
 
-        # Verificar si la apuesta actual es de ases
-        if pinta_actual == 1:
-            if pinta_nueva == 1 and cantidad_nueva > cantidad_actual:
-                return True
-            if pinta_nueva != 1 and cantidad_nueva > (cantidad_actual * 2):
-                return True
-            return False
-        
-        # Verificar si la apuesta nueva es de ases
-        if pinta_nueva == 1:
-            if cantidad_nueva > (cantidad_actual // 2):
-                return True
-            return False
-
-        mayor_pinta = pinta_nueva > pinta_actual
-        mayor_cantidad = cantidad_nueva > cantidad_actual
-        if mayor_pinta or mayor_cantidad:
-            return True
-        return False
+        return validador.validar_apuesta(apuesta_actual=(pinta_actual, cantidad_actual), apuesta_nueva=(pinta_nueva, cantidad_nueva))
