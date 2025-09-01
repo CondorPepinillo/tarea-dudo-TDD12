@@ -36,4 +36,25 @@ class GestorPartida:
         return False
 
     def validar_apuesta(self, apuesta_actual, apuesta_nueva):
-        pass
+        cantidad_actual, pinta_actual = apuesta_actual
+        cantidad_nueva, pinta_nueva = apuesta_nueva
+
+        # Verificar si la apuesta actual es de ases
+        if pinta_actual == 1:
+            if pinta_nueva == 1 and cantidad_nueva > cantidad_actual:
+                return True
+            if pinta_nueva != 1 and cantidad_nueva > (cantidad_actual * 2):
+                return True
+            return False
+        
+        # Verificar si la apuesta nueva es de ases
+        if pinta_nueva == 1:
+            if cantidad_nueva > (cantidad_actual // 2):
+                return True
+            return False
+
+        mayor_pinta = pinta_nueva > pinta_actual
+        mayor_cantidad = cantidad_nueva > cantidad_actual
+        if mayor_pinta or mayor_cantidad:
+            return True
+        return False
