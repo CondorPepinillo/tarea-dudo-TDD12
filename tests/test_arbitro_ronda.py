@@ -17,10 +17,12 @@ class TestArbitroRonda:
 
             cachos.append(cacho)
 
+        jugador1 = {'nombre': 'Jugador1', 'cacho': cachos[0]}
+        jugador2 = {'nombre': 'Jugador2', 'cacho': cachos[1]}
         contador = contador_pintas()
         arbitro = ArbitroRonda(contador)
-        resultado = arbitro.determinar_duda(apuesta=(2, 12), jugador_apuesta="Jugador1", jugador_duda="Jugador2", cachos=cachos)
-        assert resultado['pierde'] == "Jugador2"
+        resultado = arbitro.determinar_duda(apuesta=(2, 12), jugador_apuesta=jugador1, jugador_duda=jugador2, cachos=cachos)
+        assert resultado['pierde'] == jugador2
 
     def test_pierde_el_que_apuesta(self):
         cachos = []
@@ -35,10 +37,12 @@ class TestArbitroRonda:
 
             cachos.append(cacho)
         
+        jugador1 = {'nombre': 'Jugador1', 'cacho': cachos[0]}
+        jugador2 = {'nombre': 'Jugador2', 'cacho': cachos[1]}
         contador = contador_pintas()
         arbitro = ArbitroRonda(contador)
-        resultado = arbitro.determinar_duda(apuesta=(6, 9), jugador_apuesta="Jugador1", jugador_duda="Jugador2", cachos=cachos)
-        assert resultado['pierde'] == "Jugador1"
+        resultado = arbitro.determinar_duda(apuesta=(6, 9), jugador_apuesta=jugador1, jugador_duda=jugador2, cachos=cachos)
+        assert resultado['pierde'] == jugador1
 
     def test_calzar_correcto(self):
         cachos = []
@@ -121,7 +125,7 @@ class TestArbitroRonda:
             cacho.lista_de_dados[1].pinta = 2  
             cacho.lista_de_dados[2].pinta = 2  
             cacho.lista_de_dados[3].pinta = 3
-            cacho.remover_dado(0)  
+            cacho.remover_dado(4)  
 
             cachos.append(cacho)
         
@@ -130,7 +134,7 @@ class TestArbitroRonda:
 
         jugador_apuesta = {'nombre': 'Jugador1', 'cacho': cachos[0]}
         assert len(jugador_apuesta['cacho'].get_lista_de_dados()) == 4
-        resultado = arbitro.determinar_calza(apuesta=(3, 4), jugador_apuesta=jugador_apuesta, cachos=cachos)
+        resultado = arbitro.determinar_calza(apuesta=(2, 6), jugador_apuesta=jugador_apuesta, cachos=cachos)
         assert len(jugador_apuesta['cacho'].get_lista_de_dados()) == 5
 
     def test_jugador_gana_dado_pero_tiene_cinco_dados(self):
@@ -151,5 +155,5 @@ class TestArbitroRonda:
 
         jugador_apuesta = {'nombre': 'Jugador1', 'cacho': cachos[0]}
         assert len(jugador_apuesta['cacho'].get_lista_de_dados()) == 5
-        resultado = arbitro.determinar_calza(apuesta=(1, 2), jugador_apuesta=jugador_apuesta, cachos=cachos)
+        resultado = arbitro.determinar_calza(apuesta=(2, 6), jugador_apuesta=jugador_apuesta, cachos=cachos)
         assert len(jugador_apuesta['cacho'].get_lista_de_dados()) == 5
