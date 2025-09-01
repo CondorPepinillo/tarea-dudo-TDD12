@@ -1,3 +1,4 @@
+from src.juego.dado import Dado
 class ArbitroRonda:
     def __init__(self, contador_pintas):
         self.contador_pintas = contador_pintas
@@ -16,8 +17,10 @@ class ArbitroRonda:
                 cantidad_real += conteo[pinta_nombre]
 
         if cantidad_real >= cantidad:
+            jugador_duda['cacho'].remover_dado(0)
             return {'pierde': jugador_duda, 'cantidad_real': cantidad_real}
         else:
+            jugador_apuesta['cacho'].remover_dado(0)
             return {'pierde': jugador_apuesta, 'cantidad_real': cantidad_real}
 
     def determinar_calza(self, cachos, apuesta, jugador_apuesta=None): 
@@ -38,7 +41,12 @@ class ArbitroRonda:
             if pinta_nombre in conteo:
                 cantidad_real += conteo[pinta_nombre]
            
+        print(cantidad, cantidad_real)
         if cantidad_real == cantidad:
+            if jugador_apuesta and len(jugador_apuesta['cacho'].get_lista_de_dados()) < 5:
+                jugador_apuesta['cacho'].lista_de_dados.append(Dado())
             return True
         else:
+            if jugador_apuesta:
+                jugador_apuesta['cacho'].remover_dado(0)
             return False
