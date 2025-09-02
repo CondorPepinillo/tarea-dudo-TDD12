@@ -1,10 +1,9 @@
 import random
 
 class Dado:
-    pinta = random.randint(1, 6) #un dado aunque no haya sido tirado siempre tendra ya una pinta, no hay un dado neutro
 
     def __init__(self):
-        self.valor = None
+        self.pinta = random.randint(1, 6) #un dado aunque no haya sido tirado siempre tendra ya una pinta, no hay un dado neutro
 
     def tirar_dado(self): 
         self.pinta = random.randint(1, 6)
